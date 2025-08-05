@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Orientation Métiers - Questionnaire précis</title>
+<style>
+  body {
+    margin: 0;
+    background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+  .container {
+    background-color: rgba(0,0,0,0.85);
+    padding: 30px 40px;
+    border-radius: 15px;
+    max-width: 700px;
+    width: 100%;
+    box-shadow: 0 0 20px #ff2a68;
+    animation: fadeIn 1.5s ease;
+  }
+  h1 {
+    color: #EF7D1B;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  p.intro {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+    color: #fff; /* changé en blanc */
+  }
+  label {
+    display: block;
+    margin: 18px 0 6px;
+    color: #ff7f50;
+    font-weight: 600;
+  }
+  select, button {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    margin-bottom: 18px;
+    cursor: pointer;
+  }
+  select {
+    background-color: #fff; /* blanc */
+    color: #000; /* texte noir */
+  }
+  button {
+    background-color: #EF7D1B; /* orange */
+    color: #fff;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #d66f13; /* orange foncé au hover */
+  }
+  .message {
+    margin-top: 25px;
+    font-weight: 700;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #ffcc00;
+  }
+  a.fiche-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: #ffcc00;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(-20px);}
+    to {opacity:1; transform: translateY(0);}
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧭 Questionnaire d'Orientation Métiers</h1>
+    <p class="intro">Répondez aux questions suivantes pour découvrir le métier numérique qui vous correspond le mieux.</p>
+
+    <label for="q1">1. Quel environnement préférez-vous ?</label>
+    <select id="q1" required>
+      <option value="">-- Choisissez --</option>
+      <option value="internet">Internet / Web / Mobile</option>
+      <option value="multimedia">Multimédia / Animation / Jeux</option>
+    </select>
+
+    <label for="q2">2. Préférez-vous plutôt :</label>
+    <select id="q2" required>
+      <option value="">-- Choisissez --</option>
+      <option value="coder">Coder / Programmer</option>
+      <option value="designer">Créer des visuels / interfaces</option>
+      <option value="gerer">Gérer / Organiser des projets</option>
+      <option value="communiquer">Animer une communauté / Marketing</option>
+      <option value="monter">Monter / Animer des vidéos ou animations</option>
+    </select>
+
+    <label for="q3">3. Quel niveau de maîtrise avez-vous des outils suivants ? (si inconnu, choisissez "Aucune")</label>
+    <select id="q3" >
+      <option value="">-- Choisissez --</option>
+      <option value="adobe">Photoshop, Illustrator, After Effects</option>
+      <option value="code">Visual Studio Code, GitHub</option>
+      <option value="cms">Canva, Hootsuite, réseaux sociaux</option>
+      <option value="planif">Trello, Notion, Google Sheets</option>
+      <option value="aucun">Aucune expérience</option>
+    </select>
+
+    <label for="q4">4. Êtes-vous à l’aise avec la création d’éléments 3D ou de réalité virtuelle ?</label>
+    <select id="q4" >
+      <option value="">-- Choisissez --</option>
+      <option value="oui">Oui, j’aime explorer ces technologies</option>
+      <option value="non">Non, pas intéressé</option>
+    </select>
+
+    <label for="q5">5. Quel type de travail préférez-vous ?</label>
+    <select id="q5" required>
+      <option value="">-- Choisissez --</option>
+      <option value="travail_independant">Travailler seul / en freelance</option>
+      <option value="travail_equipe">Travailler en équipe / gestion de projet</option>
+      <option value="animation_communautaire">Interaction avec une communauté</option>
+    </select>
+
+    <label for="q6">6. Quel est votre degré d'intérêt pour la création de jeux vidéo ou expériences immersives ?</label>
+    <select id="q6" >
+      <option value="">-- Choisissez --</option>
+      <option value="fort">Très intéressé</option>
+      <option value="moyen">Un peu intéressé</option>
+      <option value="pas">Pas du tout intéressé</option>
+    </select>
+
+    <label for="q7">7. Souhaitez-vous plus un métier orienté vers la technique ou la créativité ?</label>
+    <select id="q7" required>
+      <option value="">-- Choisissez --</option>
+      <option value="technique">Technique (programmation, outils complexes)</option>
+      <option value="creatif">Créatif (design, animation, contenu)</option>
+      <option value="mixte">Mixte (les deux)</option>
+    </select>
+
+    <button onclick="analyserReponses()">Voir le métier recommandé</button>
+
+    <div class="message" id="message"></div>
+  </div>
+
+<script>
+  function analyserReponses() {
+    const choix = {
+      q1: document.getElementById('q1').value,
+      q2: document.getElementById('q2').value,
+      q3: document.getElementById('q3').value,
+      q4: document.getElementById('q4').value,
+      q5: document.getElementById('q5').value,
+      q6: document.getElementById('q6').value,
+      q7: document.getElementById('q7').value,
+    };
+    const message = document.getElementById('message');
+
+    // Vérifier les questions obligatoires
+    if(!choix.q1 || !choix.q2 || !choix.q5 || !choix.q7) {
+      message.style.color = '#ff5555';
+      message.textContent = '❗ Veuillez répondre à toutes les questions obligatoires.';
+      return;
+    }
+
+    // Initialiser scores métier
+    const scores = {
+      "Développeur Web": 0,
+      "Développeur d’application mobiles": 0,
+      "UI/UX Designer": 0,
+      "Chef de projet digital": 0,
+      "Community Manager": 0,
+      "Infographiste 2D-3D": 0,
+      "Motion Designer / Monteur vidéo": 0,
+      "Développeur de jeux vidéo": 0,
+      "Concepteur multimédia": 0,
+      "Développeur en Réalité Virtuelle / Réalité Augmentée (VR/AR/XR)": 0,
+    };
+
+    // Attribution points par réponse
+
+    // q1 - Environnement
+    if(choix.q1 === 'internet') {
+      scores["Développeur Web"] += 2;
+      scores["Développeur d’application mobiles"] += 2;
+      scores["UI/UX Designer"] += 2;
+      scores["Chef de projet digital"] += 2;
+      scores["Community Manager"] += 2;
+    } else if(choix.q1 === 'multimedia') {
+      scores["Infographiste 2D-3D"] += 2;
+      scores["Motion Designer / Monteur vidéo"] += 2;
+      scores["Développeur de jeux vidéo"] += 2;
+      scores["Concepteur multimédia"] += 2;
+      scores["Développeur en Réalité Virtuelle / Réalité Augmentée (VR/AR/XR)"] += 2;
+    }
+
+    // q2 - Préférence tâches
+    switch(choix.q2) {
+      case 'coder':
+        scores["Développeur Web"] += 3;
+        scores["Développeur d’application mobiles"] += 3;
+        scores["Développeur de jeux vidéo"] += 3;
+        scores["Développeur en Réalité Virtuelle / Réalité Augmentée (VR/AR/XR)"] += 3;
+        break;
+      case 'designer':
+        scores["UI/UX Designer"] += 3;
+        scores["Infographiste 2D-3D"] += 3;
+        scores["Motion Designer / Monteur vidéo"] += 3;
+        scores["Concepteur multimédia"] += 3;
+        break;
+      case 'gerer':
+        scores["Chef de projet digital"] += 4;
+        break;
+      case 'communiquer':
+        scores["Community Manager"] += 4;
+        break;
+      case 'monter':
+        scores["Motion Designer / Monteur vidéo"] += 4;
+        scores["Concepteur multimédia"] += 2;
+        break;
+    }
+
+    // q3 - Outils maîtrisés
+    switch(choix.q3) {
+      case 'adobe':
+        scores["Motion Designer / Monteur vidéo"] += 3;
+        scores["Infographiste 2D-3D"] += 3;
+        scores["UI/UX Designer"] += 2;
+        scores["Concepteur multimédia"] += 2;
+        break;
+      case 'code':
+        scores["Développeur Web"] += 3;
+        scores["Développeur d’application mobiles"] += 3;
+        scores["Développeur de jeux vidéo"] += 2;
+        scores["Développeur en Réalité Virtuelle / Réalité Augmentée (VR/AR/XR)"] += 2;
+        break;
+      case 'cms':
+        scores["Community Manager"] += 3;
+        scores["UI/UX Designer"] += 1;
+        scores["Infographiste 2D-3D"] += 1;
+        break;
+      case 'planif':
+        scores["Chef de projet digital"] += 3;
+        break;
+      case 'aucun':
+        // pas de points
+        break;
+    }
+
+    // q4 - 3D / VR
+    if(choix.q4 === 'oui') {
+      scores["Développeur en Réalité Virtuelle / Réalité Augmentée (VR/AR/XR)"] += 4;
+      scores["Développeur de jeux vidéo"] += 3;
+      scores["Concepteur multimédia"] += 2;
+      scores["Infographiste 2D-3D"] += 1;
+    }
+
+    // q5 - Type travail
+    switch(choix.q5) {
+      case 'travail_independant':
+        scores["Développeur Web"] += 2;
+        scores["Motion Designer / Monteur vidéo"] += 2;
+        scores["Infographiste 2D-3D"] += 2;
+        scores["Développeur d’application mobiles"] += 2;
+        break;
+      case 'travail_equipe':
+        scores["Chef de projet digital"] += 3;
+        scores["UI/UX Designer"] += 2;
+        scores["Community Manager"] += 2;
+        break;
+      case 'animation_communautaire':
+        scores["Community Manager"] += 4;
+        break;
+    }
+
+    // q6 - Intérêt jeux vidéo / immersif
+    if(choix.q6 === 'fort') {
+      scores["Développeur de jeux vidéo"] += 4;
+      scores["Développeur en Réalité Virtuelle / Réalité Augmentée (VR/AR/XR)"] += 3;
+      scores["Concepteur multimédia"] += 2;
+    } else if(choix.q6 === 'moyen') {
+      scores["Développeur de jeux vidéo"] += 2;
+      scores["Concepteur multimédia"] += 1;
+    }
+
+    // q7 - Technique vs Créatif
+    switch(choix.q7) {
+      case 'technique':
+        scores["Développeur Web"] += 3;
+        scores["Développeur d’application mobiles"] += 3;
+        scores["Développeur de jeux vidéo"] += 3;
+        scores["Développeur en Réalité Virtuelle / Réalité Augmentée (VR/AR/XR)"] += 3;
+        break;
+      case 'creatif':
+        scores["Motion Designer / Monteur vidéo"] += 3;
+        scores["Infographiste 2D-3D"] += 3;
+        scores["UI/UX Designer"] += 3;
+        scores["Concepteur multimédia"] += 3;
+        break;
+      case 'mixte':
+        scores["Chef de projet digital"] += 2;
+        scores["UI/UX Designer"] += 2;
+        scores["Concepteur multimédia"] += 2;
+        break;
+    }
+
+    // Trouver le métier avec le score max
+    let maxScore = 0;
+    let bestMetier = "";
+    for(let metier in scores) {
+      if(scores[metier] > maxScore) {
+        maxScore = scores[metier];
+        bestMetier = metier;
+      }
+    }
+
+    // Les liens PDF pour chaque métier
+    const liensFiches = {
+      "Développeur Web": "https://drive.google.com/file/d/1hGYvZtaI4GZ-udUoLuVLu2D_nvkNO5dj/view?usp=sharing",
+      "Développeur d’application mobiles": "https://drive.google.com/file/d/1q3ppC46HkKNAt84G8OM8KDoOV2LPazLL/view?usp=sharing",
+      "UI/UX Designer": "https://drive.google.com/file/d/1TGqsFAIIqpUdJJ3oqrk8ee9QJ5Nhsqbl/view?usp=sharing",
+      "Chef de projet digital": "https://drive.google.com/file/d/1b4II5A7fByjvOt2smNy9ZF7rpVInMVB6/view?usp=sharing",
+      "Community Manager": "https://drive.google.com/file/d/1oePN8I57mK6f4Jn25jsNFPEW3ThCM5SL/view?usp=sharing",
+      "Infographiste 2D-3D": "https://drive.google.com/file/d/1wp8-CvBZASRnfeMLR2a8eqrQtcIKKzJC/view?usp=sharing",
+      "Motion Designer / Monteur vidéo": "https://drive.google.com/file/d/1uDSEsrAqE-SD_J6WHg5G9D8QXnuACmj2/view?usp=sharing",
+      "Développeur de jeux vidéo": "https://drive.google.com/file/d/1x3_UxXdGTtbYprxUoZ11Us0b46xH5Q8-/view?usp=sharing",
+      "Concepteur multimédia": "https://drive.google.com/file/d/1x-SWUGMD9RBjPFz2GZEXhLtGQ1H1HP0P/view?usp=sharing",
+      "Développeur en Réalité Virtuelle / Réalité Augmentée (VR/AR/XR)": "https://drive.google.com/file/d/1BHZjx0TF7g_r3GDhyJknFNpTOo1Bu3Fa/view?usp=sharing"
+    };
+
+    if(maxScore === 0) {
+      message.style.color = '#ff5555';
+      message.textContent = "❌ Aucune correspondance trouvée. Veuillez choisir des réponses plus cohérentes.";
+    } else {
+      message.style.color = '#ffcc00';
+      message.innerHTML = `✅ Le métier recommandé est <strong>${bestMetier}</strong>.<br>
+      <a href="${liensFiches[bestMetier]}" target="_blank" class="fiche-link">Voir la fiche métier</a>`;
+    }
+  }
+</script>
+
+</body>
+</html>
